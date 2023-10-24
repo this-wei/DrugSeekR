@@ -1,0 +1,13 @@
+Package: DrugSeekR
+Type: Package
+Title: Analyzes genomic data and identifies potential drug targets for personalized medicine.
+Version: 0.1.0
+Author: person("Wei Jin", "Luo", email = "weijin.luo@mail.utoronto.ca", role = c("aut", "cre"))
+Maintainer: Wei Jin Luo <weijin.luo@mail.utoronto.ca>
+Description: Analyze genomic data and identify potential drug targets for personalized medicine,
+    providing a comprehensive and integrated solution that combines mutational signature analysis, 
+    gene and pathway annotation, and drug target prediction.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
