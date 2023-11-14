@@ -1,0 +1,62 @@
+#' Get gene drug targets
+#'
+#' This function takes a data frame of gene data and returns a list of
+#' the most druggable genes and information on the drugs that target them.
+#' Gene druggability is found from the Drug Gene Interaction Database
+#'  referenced below
+#'
+#' @param geneData A data frame of gene data that must column Hugo_Symbol.
+#' @param number An integer specifying the number of most druggable genes to return.
+#' Default is NULL which gets all genes.
+#'
+#' @return A list with two elements:
+#' \itemize{
+#'   \item mostDruggableGenes: A named vector of the most druggable genes and
+#'    their frequency in the drug database.
+#'   \item drugsThatTargetTheseGenes: A data frame of the drugs that target
+#'    the most druggable genes with columns Gene, interaction_claim_source,
+#'   interaction_types, drug_claim_name, drug_claim_primary_name, drug_name,
+#'    drug_chembl_id, PMIDs
+#' }
+#'
+#' @examples
+#' # Example 1:
+#' # Use gene data provided from the maftools package
+#' laml.maf <- system.file('extdata', 'tcga_laml.maf.gz', package = 'maftools')
+#' laml <- maftools::read.maf(maf = laml.maf)
+#' geneSummary <- maftools::getGeneSummary(laml)
+#'
+#' getGeneDrugTargets(geneSummary)
+#'
+#' @references
+#' Mayakonda A, Lin DC, Assenov Y, Plass C, Koeffler HP. 2018.
+#'  Maftools: efficient and comprehensive analysis of somatic variants in cancer.
+#'   Genome
+#' Research. http://dx.doi.org/10.1101/gr.239244.118
+#'
+#' Griffith, M., Griffith, O., Coffman, A. et al.
+#' DGIdb: mining the druggable genome. Nat Methods 10, 1209–1210 (2013).
+#'  https://doi.org/10.1038/nmeth.2689
+#'
+#' @export
+#' @import maftools
+getGeneDrugTargets <- function(geneData, number = NULL) {
+  drugs <- maftools::drugInteractions(maf = NULL,
+                                      genes = geneData$Hugo_Symbol,
+                                      drugs = TRUE)
+  sortedGenes <- sort(table (drugs$Gene), decreasing = TRUE)
+
+  if (!is.null(number)) {
+    mostDruggableGenes <- sortedGenes[1:number]
+    topGenes <- names(mostDruggableGenes)[1:number]
+    topDrugs <- drugs[drugs$Gene %in% topGenes, ]
+  }
+  else {
+    mostDruggableGenes <- sortedGenes
+    topDrugs <- drugs
+  }
+
+  return(list(mostDruggableGenes = mostDruggableGenes,
+              drugsThatTargetTheseGenes = topDrugs))
+}
+

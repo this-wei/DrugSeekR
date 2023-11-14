@@ -1,13 +1,24 @@
 Package: DrugSeekR
 Type: Package
-Title: Analyzes genomic data and identifies potential drug targets for personalized medicine.
+Title: DrugSeekR: Analyzes genomic data and identifies potential drug targets for personalized medicine
 Version: 0.1.0
 Author: person("Wei Jin", "Luo", email = "weijin.luo@mail.utoronto.ca", role = c("aut", "cre"))
 Maintainer: Wei Jin Luo <weijin.luo@mail.utoronto.ca>
 Description: Analyze genomic data and identify potential drug targets for personalized medicine,
-    providing a comprehensive and integrated solution that combines mutational signature analysis, 
-    gene and pathway annotation, and drug target prediction.
+    providing a comprehensive and integrated solution that combines mutational visualization, 
+    gene annotation, and drug target prediction.
 License: MIT + file LICENSE
+Depends: R (>= 3.1.0)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
+Imports: 
+    biomaRt,
+    ggplot2,
+    maftools
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr

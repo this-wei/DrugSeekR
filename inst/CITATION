@@ -1,0 +1,11 @@
+citHeader("To cite DrugSeekR in publications use:")
+
+citEntry(
+  entry    = "Unpublished",
+  title    = "DrugSeekR: Analyze genomic data and identifies potential drug targets for personalized medicine" ,
+  author   = "Wei Jin Luo",
+  note     = "Unpublished",
+  year     = "2023",
+  textVersion = paste("Luo, W. (2023) DrugSeekR: Analyze genomic data and identifies potential drug targets for personalized medicine. Unpublished. URL https://github.com/this-wei/DrugSeekR"
+  )
+)
