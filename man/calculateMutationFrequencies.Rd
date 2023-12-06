@@ -20,7 +20,8 @@ the frequency of observed mutations within a sample and their percentages
 }
 \examples{
 # Example 1:
-# Using maftools maf data available with package
+# Using maftools maf data available with package. It contains a maf file
+# with data from a paper studying adult acute myeloid leukemia
 laml.maf <- system.file('extdata', 'tcga_laml.maf.gz', package = 'maftools')
 laml <- maftools::read.maf(maf = laml.maf)
 geneSummary <- maftools::getGeneSummary(laml)
@@ -31,6 +32,9 @@ mutationStatistics
 
 }
 \references{
+Cancer Genome Atlas Research, N. Genomic and epigenomic landscapes of adult de novo acute myeloid leukemia.
+ N Engl J Med 368, 2059-74. 2013
+
 Mayakonda A, Lin DC, Assenov Y, Plass C, Koeffler HP. 2018. Maftools:
 efficient and comprehensive analysis of somatic variants in cancer. Genome
 Research. http://dx.doi.org/10.1101/gr.239244.118

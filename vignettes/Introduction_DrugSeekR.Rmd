@@ -4,8 +4,11 @@ author: "Wei Jin Luo"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction_DrugSeekR}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r, include = FALSE}
@@ -15,97 +18,148 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Introduction 
-`DrugSeekR` is an R package that analyzes genomic data in the format of MAF files to identify potential drug targets for personalized medicine through mutational frequency analysis, gene annotation, and drug target matching.
+## Introduction
+
+`DrugSeekR` is an R package that analyzes genomic data in the format of
+MAF files to identify potential drug targets for personalized medicine
+through mutational frequency analysis, gene annotation, and drug target
+matching.
 
 To download `DrugSeekR` use the following commands:
 
-```r
+```{r}
 require("devtools")
-devtools::install github("this-wei/DrugSeekR", build vignettes = TRUE)
+devtools::install_github("this-wei/DrugSeekR", build_vignettes = TRUE)
 library("DrugSeekR")
 ```
 
 To list all sample functions available in the package:
-``` r
+
+```{r}
 ls("package:DrugSeekR")
 ```
 
-`DrugSeekR` contains 4 functions:
-1. **calculateMutationFrequency** for calculating the frequency and percentage of observed mutations within a sample.
-2. **annotateGenes** for annotating the genes with information from the ensembl database and returns the top genes with the highest number of mutations. Note this function must use dbplyr version 2.3.4 due to a known bug
-3. **getGeneDrugTargets** for finding the most druggable genes and the drugs that target them from the Drug Gene Interaction Database.
-4. **plotDruggableGenes** for ploting the number of drugs for each gene using ggplot2.
-
+`DrugSeekR` contains 4 functions: 1. **calculateMutationFrequency** for
+calculating the frequency and percentage of observed mutations within a
+sample. 2. **annotateGenes** for annotating the genes with information
+from the ensembl database and returns the top genes with the highest
+number of mutations. Note this function must use dbplyr version 2.3.4
+due to a known bug 3. **getGeneDrugTargets** for finding the most
+druggable genes and the drugs that target them from the Drug Gene
+Interaction Database. 4. **plotDruggableGenes** for ploting the number
+of drugs for each gene using ggplot2.
 
 ## Data
-Sample data can be obtained using the dataset provided from the maftools R package like so:
-```r
+
+Sample data can be obtained using the dataset provided from the maftools
+R package like so:
+
+```{r}
 laml.maf <- system.file('extdata', 'tcga_laml.maf.gz', package = 'maftools')
 laml = maftools::read.maf(maf = laml.maf)
 ```
 
-Other MAF files for analysis can be found at the repository of the The Cancer Genome Atlas Program (TCGA),
-which provides publicly available genomic, epigenomic, transcriptomic, and proteomic data.
+Other MAF files for analysis can be found at the repository of the The
+Cancer Genome Atlas Program (TCGA), which provides publicly available
+genomic, epigenomic, transcriptomic, and proteomic data.
 
 The link is provided here:
-(https://portal.gdc.cancer.gov/repository?filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22in%22%2C%22content%22%3A%7B%22field%22%3A%22files.access%22%2C%22value%22%3A%5B%22open%22%5D%7D%7D%2C%7B%22op%22%3A%22in%22%2C%22content%22%3A%7B%22field%22%3A%22files.data_format%22%2C%22value%22%3A%5B%22maf%22%5D%7D%7D%5D%7D)
+(<https://portal.gdc.cancer.gov/repository?filters=%7B%22op%22%3A%22and%22%2C%22content%22%3A%5B%7B%22op%22%3A%22in%22%2C%22content%22%3A%7B%22field%22%3A%22files.access%22%2C%22value%22%3A%5B%22open%22%5D%7D%7D%2C%7B%22op%22%3A%22in%22%2C%22content%22%3A%7B%22field%22%3A%22files.data_format%22%2C%22value%22%3A%5B%22maf%22%5D%7D%7D%5D%7D>)
 
-Note you must unzip and provide the path to the maf.gz file to the maftools::read.maf function.
-```r
+Note you must unzip and provide the path to the maf.gz file to the
+maftools::read.maf function.
+
+```{r, eval=FALSE}
 laml <- maftools::read.maf(maf = PATH_TO_MAF)
 ```
 
-Then mutation data can be extracted:
-```r
+Then mutation data can be extracted, this shows relevant gene and mutation types for the sample within the maf file:
+```{r}
 geneSummary <- maftools::getGeneSummary(laml)
+geneSummary
 ```
 
-The gene summary will be useful as input to the **calculateMutationFrequency**, **annotateGenes**, **getGeneDrugTargets** functions
+The gene summary will be useful as input to the
+**calculateMutationFrequency**, **annotateGenes**,
+**getGeneDrugTargets** functions
 
 ## Components
-* The **calculateMutationFrequency** calculates the frequency and percentage of observed mutations within a sample.
-Example:
-```r
+
+-   The **calculateMutationFrequency** calculates the frequency and
+    percentage of observed mutations within a sample. This allows further visualization of relevant mutations found within the sample. Example:
+
+```{r}
 mutationStatistics <- calculateMutationFrequencies(geneSummary)
 mutationStatistics
 ```
 
-* **annotateGenes** annotates the genes with information from the ensembl database and returns the top genes with the highest number of mutations. It allows the user to specify the number of genes to annotes and the reference genome.
-Note this function must use dbplyr version 2.3.4 due to a known bug
-```r
-annotateGenes(geneData = geneSummary)
+-   **annotateGenes** annotates the genes with information from the
+    ensembl database and returns the top genes with the highest number
+    of mutations. It allows the user to specify the number of genes to
+    annotes and the reference genome. Note this function must use dbplyr
+    version 2.3.4 due to a known bug
+
+```{r}
+geneAnnotations <- annotateGenes(geneData = geneSummary, number = 5)
+geneAnnotations
 ```
 
-* **getGeneDrugTargets** finds the most druggable genes and the drugs that target them from the Drug Gene Interaction Database. It allows the user to specify the number of genes to return
-```r
-getGeneDrugTargets(geneSummary)
+Here we run annotateGenes on the sample dataset and look for 5 genes with the most mutations. The function returns the top 5 genes with more information about those genes for further research.
+
+-   **getGeneDrugTargets** finds the most druggable genes and the drugs
+    that target them from the Drug Gene Interaction Database. It allows
+    the user to specify the number of genes to return
+
+```{r}
+drugTargets <- getGeneDrugTargets(geneSummary, number = 5)
 ```
 
-* **plotDruggableGenes** plots the number of drugs for each gene using ggplot2.
-```r
-drugTargets <- DrugSeekR::getGeneDrugTargets(geneSummary)
+```{r}
+drugTargets$mostDruggableGenes
+```
+```{r}
+drugTargets$drugsThatTargetTheseGenes
+```
+
+-   **plotDruggableGenes** plots the number of drugs for each gene using
+    ggplot2. On the y-axis we can see the number of drugs, on the x-axis we can see the hgnc symbol of the gene
+
+```{r}
 plotDruggableGenes(drugTargets$mostDruggableGenes)
 ```
 
 ## Package References
 
-Luo, W. (2023) DrugSeekR: Analyze genomic data and identifies potential drug targets for personalized medicine. Unpublished. URL https://github.com/this-wei/DrugSeekR
+Luo, W. (2023) DrugSeekR: Analyze genomic data and identifies potential
+drug targets for personalized medicine. Unpublished. URL
+<https://github.com/this-wei/DrugSeekR>
 
 ## Other references
 
-- Mayakonda A, Lin DC, Assenov Y, Plass C, Koeffler HP (2018). Maftools: efficient and comprehensive analysis of somatic variants in cancer. Genome Research. http://dx.doi.org/10.1101/gr.239244.118
+-   Mayakonda A, Lin DC, Assenov Y, Plass C, Koeffler HP (2018).
+    Maftools: efficient and comprehensive analysis of somatic variants
+    in cancer. Genome Research.
+    <http://dx.doi.org/10.1101/gr.239244.118>
 
-- Steffen Durinck, Paul T. Spellman, Ewan Birney and Wolfgang Huber (2009). Mapping identifiers for the integration of genomic datasets with the R/Bioconductor package biomaRt.  Nature Protocols 4, 1184-1191 .
+-   Steffen Durinck, Paul T. Spellman, Ewan Birney and Wolfgang Huber
+    (2009). Mapping identifiers for the integration of genomic datasets
+    with the R/Bioconductor package biomaRt. Nature Protocols 4,
+    1184-1191 .
 
-- Steffen Durinck, Yves Moreau, Arek Kasprzyk, Sean Davis, Bart De Moor, Alvis Brazma and Wolfgang Huber (2005). BioMart and Bioconductor: a powerful link between biological databases and microarray data analysis. Bioinformatics 21, 3439-3440 
+-   Steffen Durinck, Yves Moreau, Arek Kasprzyk, Sean Davis, Bart De
+    Moor, Alvis Brazma and Wolfgang Huber (2005). BioMart and
+    Bioconductor: a powerful link between biological databases and
+    microarray data analysis. Bioinformatics 21, 3439-3440
 
-- Griffith, M., Griffith, O., Coffman, A. et al (2013). DGIdb: mining the druggable genome. Nat Methods 10, 1209–1210. https://doi.org/10.1038/nmeth.2689
+-   Griffith, M., Griffith, O., Coffman, A. et al (2013). DGIdb: mining
+    the druggable genome. Nat Methods 10, 1209--1210.
+    <https://doi.org/10.1038/nmeth.2689>
 
-- H. Wickham (2016). ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York
+-   H. Wickham (2016). ggplot2: Elegant Graphics for Data Analysis.
+    Springer-Verlag New York
 
+---
 
-
-
-
-
+```{r}
+sessionInfo()
+```

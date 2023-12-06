@@ -88,24 +88,28 @@ use of the ggplot2 R package to create the plot.
 
 - Mayakonda A, Lin DC, Assenov Y, Plass C, Koeffler HP (2018). Maftools:
   efficient and comprehensive analysis of somatic variants in cancer.
-  Genome Research. <http://dx.doi.org/10.1101/gr.239244.118>
+  *Genome Research*. <http://dx.doi.org/10.1101/gr.239244.118>
+
+- Cancer Genome Atlas Research, N. Genomic and epigenomic landscapes of
+  adult de novo acute myeloid leukemia. *N Engl J Med 368*, 2059-74.
+  2013
 
 - Steffen Durinck, Paul T. Spellman, Ewan Birney and Wolfgang Huber
   (2009). Mapping identifiers for the integration of genomic datasets
-  with the R/Bioconductor package biomaRt. Nature Protocols 4, 1184-1191
-  .
+  with the R/Bioconductor package biomaRt. *Nature Protocols 4*,
+  1184-1191 .
 
 - Steffen Durinck, Yves Moreau, Arek Kasprzyk, Sean Davis, Bart De Moor,
   Alvis Brazma and Wolfgang Huber (2005). BioMart and Bioconductor: a
   powerful link between biological databases and microarray data
-  analysis. Bioinformatics 21, 3439-3440
+  analysis. *Bioinformatics 21*, 3439-3440
 
 - Griffith, M., Griffith, O., Coffman, A. et al (2013). DGIdb: mining
-  the druggable genome. Nat Methods 10, 1209–1210.
+  the druggable genome. *Nat Methods 10*, 1209–1210.
   <https://doi.org/10.1038/nmeth.2689>
 
 - H. Wickham (2016). ggplot2: Elegant Graphics for Data Analysis.
-  Springer-Verlag New York
+  *Springer-Verlag New York*
 
 ## Acknowledgements
 

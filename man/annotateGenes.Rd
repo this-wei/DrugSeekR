@@ -36,14 +36,18 @@ queries the ensembl database for gene annotations.
 }
 \examples{
 # Example 1
-# Use gene data provided from the maftools package
+# Use gene data provided from the maftools package. It contains a maf file
+# with data from a paper studying adult acute myeloid leukemia
 laml.maf <- system.file('extdata', 'tcga_laml.maf.gz', package = 'maftools')
 laml <- maftools::read.maf(maf = laml.maf)
 geneSummary <- maftools::getGeneSummary(laml)
-annotateGenes(geneData = geneSummary)
+annotateGenes(geneData = geneSummary, number = 5)
 
 }
 \references{
+Cancer Genome Atlas Research, N. Genomic and epigenomic landscapes of adult de novo acute myeloid leukemia.
+ N Engl J Med 368, 2059-74. 2013
+
 Mapping identifiers for the integration of genomic datasets with the
 R/Bioconductor package biomaRt.
 Steffen Durinck, Paul T. Spellman, Ewan Birney and

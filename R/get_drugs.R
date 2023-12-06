@@ -21,7 +21,8 @@
 #'
 #' @examples
 #' # Example 1:
-#' # Use gene data provided from the maftools package
+#' # Use gene data provided from the maftools package. It contains a maf file
+#' # with data from a paper studying adult acute myeloid leukemia
 #' laml.maf <- system.file('extdata', 'tcga_laml.maf.gz', package = 'maftools')
 #' laml <- maftools::read.maf(maf = laml.maf)
 #' geneSummary <- maftools::getGeneSummary(laml)
@@ -29,6 +30,9 @@
 #' getGeneDrugTargets(geneSummary)
 #'
 #' @references
+#' Cancer Genome Atlas Research, N. Genomic and epigenomic landscapes of adult de novo acute myeloid leukemia.
+#'  N Engl J Med 368, 2059-74. 2013
+#'
 #' Mayakonda A, Lin DC, Assenov Y, Plass C, Koeffler HP. 2018.
 #'  Maftools: efficient and comprehensive analysis of somatic variants in cancer.
 #'   Genome
@@ -41,6 +45,17 @@
 #' @export
 #' @import maftools
 getGeneDrugTargets <- function(geneData, number = NULL) {
+
+  if (!is.data.frame(geneData)) {
+    stop("Input must be a data frame")
+  }
+
+  required_columns <- c('Hugo_Symbol')
+
+  if (!all(required_columns %in% colnames(geneData))) {
+    stop("Input data frame must contain all required columns")
+  }
+
   drugs <- maftools::drugInteractions(maf = NULL,
                                       genes = geneData$Hugo_Symbol,
                                       drugs = TRUE)
