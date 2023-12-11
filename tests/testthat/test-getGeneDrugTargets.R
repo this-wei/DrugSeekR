@@ -18,9 +18,9 @@ test_that("getGeneDrugTargets returns the expected output", {
   expect_named(result_no_number,
                c("mostDruggableGenes", "drugsThatTargetTheseGenes"))
 
-  expect_equal(names(result_no_number$mostDruggableGenes),
+  expect_equal(as.character(result_no_number$mostDruggableGenes$Gene.Var1),
                c("EGFR", "KRAS", "TP53", "BRCA1", "BRCA2"))
-  expect_equal(names(result_number$mostDruggableGenes),
+  expect_equal(as.character(result_number$mostDruggableGenes$Gene.Var1),
                   c("EGFR", "KRAS"))
 
 })

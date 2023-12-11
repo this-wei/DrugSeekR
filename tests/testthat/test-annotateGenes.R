@@ -17,13 +17,10 @@ test_that("annotateGenes works as expected", {
   expect_type(returnData, "list")
 
   # Test the output length
-  expect_length(returnData, 2)
-
-  # Test the output names
-  expect_named(returnData, c("geneAnnotations", "numberOfMutations"))
+  expect_length(returnData, 6)
 
   # Test the output values
-  expect_setequal(returnData$geneAnnotations$hgnc_symbol, c("BRCA1", "BRCA2", "TP53", "KRAS", "EGFR"))
+  expect_setequal(returnData$geneAnnotations.hgnc_symbol, c("BRCA1", "BRCA2", "TP53", "KRAS", "EGFR"))
 
-  expect_equal(returnDataNumber$geneAnnotations$hgnc_symbol, c("EGFR", "KRAS"))
+  expect_equal(returnDataNumber$geneAnnotations.hgnc_symbol, c("EGFR", "KRAS"))
 })

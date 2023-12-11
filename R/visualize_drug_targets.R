@@ -32,10 +32,10 @@ plotDruggableGenes <- function(drugFrequencies, number = NULL) {
   gene <- NULL
   drugCount <- NULL
   if (!is.null(number)) {
-    geneCounts <- as.data.frame(drugFrequencies[1:number])
+    geneCounts <- drugFrequencies[1:number, ]
   }
   else {
-    geneCounts <- as.data.frame(drugFrequencies)
+    geneCounts <- drugFrequencies
   }
 
   colnames(geneCounts) <- c("gene", "drugCount")
@@ -44,5 +44,6 @@ plotDruggableGenes <- function(drugFrequencies, number = NULL) {
     labs(title = "Number of drugs for each gene",
          x = "Gene",
          y = "Drug count") +
-    theme_minimal()
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
 }

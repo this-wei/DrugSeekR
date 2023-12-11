@@ -6,8 +6,7 @@
 #' @param geneData A list of genetic data returned from the maftools
 #'    getGeneSummary function
 #'
-#'
-#' @return returns a list of two elements: the number of mutations for
+#' @return returns a dataframe consisting of the number of mutations for
 #'    each gene and the mutation percentage for each gene.
 #'
 #' @examples
@@ -37,7 +36,7 @@ calculateMutationFrequencies <- function(geneData) {
     stop("Input must be a data frame")
   }
 
-  required_columns <- c('Hugo_Symbol', 'MutatedSamples'
+  required_columns <- c('Hugo_Symbol', 'total'
   )
 
   if (!all(required_columns %in% colnames(geneData))) {
@@ -52,6 +51,6 @@ calculateMutationFrequencies <- function(geneData) {
   percentages <- mutationSums / total * 100
   percentages <- round(percentages, 2)
 
-  return(list(numberOfMutations = mutationSums,
+  return(data.frame(numberOfMutations = mutationSums,
               mutationByPercentage = percentages))
 }

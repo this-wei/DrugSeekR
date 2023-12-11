@@ -19,8 +19,6 @@
 #'   \item geneAnnotations: A data frame of gene annotations from biomaRt
 #'   with columns hgnc_symbol, ensembl_gene_id, chromosome_name, start_position,
 #'   end_position, and description.
-#'   \item numberOfMutations: A data frame of the top genes and
-#'   their number of mutations.
 #' }
 #'
 #' @examples
@@ -87,5 +85,6 @@ annotateGenes <- function(geneData,
                             values = genes,
                             mart = ensembl)
 
-  return(list(geneAnnotations = results, numberOfMutations = sorted))
+
+  return(data.frame(geneAnnotations = results))
 }

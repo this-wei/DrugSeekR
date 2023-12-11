@@ -71,7 +71,9 @@ getGeneDrugTargets <- function(geneData, number = NULL) {
     topDrugs <- drugs
   }
 
-  return(list(mostDruggableGenes = mostDruggableGenes,
+  # return(data.frame(mostDruggableGenes = mostDruggableGenes,
+  #             drugsThatTargetTheseGenes = topDrugs))
+  return(list(mostDruggableGenes = data.frame(Gene = mostDruggableGenes),
               drugsThatTargetTheseGenes = topDrugs))
 }
 

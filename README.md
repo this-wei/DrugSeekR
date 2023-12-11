@@ -30,7 +30,11 @@ devtools::install github("this-wei/DrugSeekR", build vignettes = TRUE)
 library("DrugSeekR")
 ```
 
-To run the shinyApp: Under construction
+To run the shinyApp:
+
+``` r
+runDrugSeekR()
+```
 
 ## Overview
 

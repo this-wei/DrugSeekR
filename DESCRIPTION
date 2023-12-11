@@ -14,10 +14,14 @@ LazyData: true
 RoxygenNote: 7.2.3
 biocViews: biomaRt, maftools
 Imports: 
-    ggplot2
+    ggplot2,
+    shiny,
+    biomaRt,
+    maftools
 Suggests: 
     knitr,
     rmarkdown,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    DT
 Config/testthat/edition: 3
 VignetteBuilder: knitr

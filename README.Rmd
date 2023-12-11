@@ -33,7 +33,9 @@ library("DrugSeekR")
 ```
 
 To run the shinyApp:
-Under construction
+``` r
+runDrugSeekR()
+```
 
 ## Overview
 `DrugSeekR` is designed to analyze MAF file inputs. MAF files for analysis can be found at the repository of the The Cancer Genome Atlas Program (TCGA),

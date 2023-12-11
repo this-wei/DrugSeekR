@@ -11,7 +11,7 @@ calculateMutationFrequencies(geneData)
 getGeneSummary function}
 }
 \value{
-returns a list of two elements: the number of mutations for
+returns a dataframe consisting of the number of mutations for
    each gene and the mutation percentage for each gene.
 }
 \description{

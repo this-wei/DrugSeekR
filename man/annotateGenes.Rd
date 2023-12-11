@@ -24,8 +24,6 @@ A list with two elements:
   \item geneAnnotations: A data frame of gene annotations from biomaRt
   with columns hgnc_symbol, ensembl_gene_id, chromosome_name, start_position,
   end_position, and description.
-  \item numberOfMutations: A data frame of the top genes and
-  their number of mutations.
 }
 }
 \description{

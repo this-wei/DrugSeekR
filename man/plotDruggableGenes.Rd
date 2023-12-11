@@ -7,7 +7,7 @@
 plotDruggableGenes(drugFrequencies, number = NULL)
 }
 \arguments{
-\item{drugFrequencies}{A named vector of drug frequencies for each gene.}
+\item{drugFrequencies}{A named vector of integers of drug frequencies for each gene.}
 
 \item{number}{An integer specifying the number of genes to plot. Default is NULL which gets all genes.}
 }
